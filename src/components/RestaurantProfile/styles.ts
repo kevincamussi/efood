@@ -65,11 +65,11 @@ export const RestaurantName = styled.div`
     color: ${colors.white};
   }
 
-  h3 {
+  h2 {
     font-weight: 100;
   }
 
-  h2 {
+  h3 {
     font-weight: 900;
   }
 `

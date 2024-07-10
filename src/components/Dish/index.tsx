@@ -7,7 +7,7 @@ const Dish = ({ restaurant }: Props) => (
   <>
     {restaurant.dishes.map((dish) => (
       <DishCard key={dish.id}>
-        <img src={dish.image} alt="" />
+        <img src={dish.image} alt="Dish" />
         <h2>{dish.title}</h2>
         <p>{dish.description}</p>
         <Button type="button"> Adicionar ao carrinho</Button>

@@ -22,7 +22,7 @@ const RestaurantProfile = ({ restaurant }: Props) => (
       <div className="container">
         <S.RestaurantName>
           <h2>{restaurant.infos}</h2>
-          <h2>{restaurant.title}</h2>
+          <h3>{restaurant.title}</h3>
         </S.RestaurantName>
       </div>
     </S.BannerImage>
