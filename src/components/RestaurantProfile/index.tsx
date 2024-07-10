@@ -1,9 +1,4 @@
-import {
-  RestaurantProfileHeader,
-  Overlay,
-  BannerImage,
-  RestaurantName
-} from './styles'
+import * as S from './styles'
 
 import logo from '../../assets/images/logo.png'
 
@@ -15,22 +10,22 @@ import DishesList from '../DishesList'
 
 const RestaurantProfile = ({ restaurant }: Props) => (
   <>
-    <RestaurantProfileHeader>
+    <S.RestaurantProfileHeader>
       <div className="container">
         <Link to={'/'}>Restaurantes</Link>
         <img src={logo} alt="Logo" />
         <p>0 produtos no carrinho</p>
       </div>
-    </RestaurantProfileHeader>
-    <BannerImage image={restaurant.image}>
-      <Overlay />
+    </S.RestaurantProfileHeader>
+    <S.BannerImage image={restaurant.image}>
+      <S.Overlay />
       <div className="container">
-        <RestaurantName>
-          <h3>{restaurant.infos}</h3>
+        <S.RestaurantName>
+          <h2>{restaurant.infos}</h2>
           <h2>{restaurant.title}</h2>
-        </RestaurantName>
+        </S.RestaurantName>
       </div>
-    </BannerImage>
+    </S.BannerImage>
     <DishesList restaurant={restaurant}></DishesList>
   </>
 )
