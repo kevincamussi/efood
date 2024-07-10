@@ -12,7 +12,7 @@ export const DishCard = styled.div`
 
   img {
     width: 100%;
-    max-height: 168px;
+    height: 168px;
     object-fit: cover;
   }
 
