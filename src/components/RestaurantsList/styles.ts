@@ -2,9 +2,7 @@ import styled from 'styled-components'
 
 import { colors } from '../../styles'
 
-import { Props } from '.'
-
-export const RestaurantsListContainer = styled.section<Props>`
+export const RestaurantsListContainer = styled.section`
   background-color: ${colors.backgroundColor};
   padding-top: 80px;
   padding-bottom: 120px;
