@@ -1,17 +1,16 @@
 import Footer from '../../components/Footer'
 import RestaurantProfile from '../../components/RestaurantProfile'
 
-import Restaurant from '../../models/restaurantModel'
+import { RestaurantPageHeader } from '../../components/Header'
 
-export type Props = {
-  restaurant: Restaurant
+const RestaurantPage = () => {
+  return (
+    <>
+      <RestaurantPageHeader />
+      <RestaurantProfile />
+      <Footer />
+    </>
+  )
 }
-
-const RestaurantPage = ({ restaurant }: Props) => (
-  <>
-    <RestaurantProfile restaurant={restaurant} />
-    <Footer />
-  </>
-)
 
 export default RestaurantPage

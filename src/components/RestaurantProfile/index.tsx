@@ -1,33 +1,45 @@
-import * as S from './styles'
-
-import logo from '../../assets/images/logo.png'
-
-import { Link } from 'react-router-dom'
-
-import { Props } from '../../pages/RestaurantPage/index'
+import { useParams } from 'react-router-dom'
+import { useRestaurants } from '../../api/api'
 
 import DishesList from '../DishesList'
 
-const RestaurantProfile = ({ restaurant }: Props) => (
-  <>
-    <S.RestaurantProfileHeader>
-      <div className="container">
-        <Link to={'/'}>Restaurantes</Link>
-        <img src={logo} alt="Logo" />
-        <p>0 produtos no carrinho</p>
+import carregando from '../../assets/images/loading.gif'
+
+import * as S from './styles'
+
+const RestaurantProfile = () => {
+  const { id } = useParams<{ id: string }>()
+  const { data, isLoading, isError } = useRestaurants()
+
+  if (!data || !id || isLoading) {
+    return (
+      <div className="loading">
+        <img src={carregando} alt="Carregando página" />
       </div>
-    </S.RestaurantProfileHeader>
-    <S.BannerImage image={restaurant.image}>
-      <S.Overlay />
-      <div className="container">
-        <S.RestaurantName>
-          <h2>{restaurant.infos}</h2>
-          <h3>{restaurant.title}</h3>
-        </S.RestaurantName>
+    )
+  }
+
+  const restaurantId = parseInt(id)
+  const restaurant = data.find((rest) => rest.id === restaurantId)
+
+  if (isError || !restaurant) {
+    return <h4>Erro ao carregar dados</h4>
+  }
+  return (
+    <>
+      <div>
+        <S.BannerImage image={restaurant.capa}>
+          <div className="container">
+            <S.RestaurantName>
+              <h2>{restaurant.tipo}</h2>
+              <h3>{restaurant.titulo}</h3>
+            </S.RestaurantName>
+          </div>
+        </S.BannerImage>
+        <DishesList />
       </div>
-    </S.BannerImage>
-    <DishesList restaurant={restaurant}></DishesList>
-  </>
-)
+    </>
+  )
+}
 
 export default RestaurantProfile

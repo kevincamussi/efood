@@ -1,23 +1,26 @@
-class Dish {
+class Cardapio {
   id: number
-  title: string
-  description: string
-  image: string
-  price?: number
+  nome: string
+  descricao: string
+  foto: string
+  preco: string
+  porcao: string
 
   constructor(
     id: number,
-    title: string,
-    description: string,
-    image: string,
-    price: number
+    nome: string,
+    descricao: string,
+    foto: string,
+    preco: string,
+    porcao: string
   ) {
     this.id = id
-    this.title = title
-    this.description = description
-    this.image = image
-    this.price = price
+    this.nome = nome
+    this.descricao = descricao
+    this.foto = foto
+    this.preco = preco
+    this.porcao = porcao
   }
 }
 
-export default Dish
+export default Cardapio

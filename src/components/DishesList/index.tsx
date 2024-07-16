@@ -1,13 +1,11 @@
-import { DishContainer } from './styles'
-
 import Dish from '../Dish'
 
-import { Props } from '../../pages/RestaurantPage'
+import { DishContainer } from './styles'
 
-const DishesList = ({ restaurant }: Props) => (
+const DishesList = () => (
   <>
     <DishContainer className="container">
-      <Dish restaurant={restaurant} />
+      <Dish />
     </DishContainer>
   </>
 )
