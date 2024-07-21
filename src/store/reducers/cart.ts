@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import Cardapio from '../../Interfaces/dishes'
 
-type CartState = {
+export type CartState = {
   items: Cardapio[]
   isOpen: boolean
 }
@@ -19,8 +19,6 @@ export const cartSlice = createSlice({
       const dish = state.items.find((item) => item.id === action.payload.id)
       if (!dish) {
         state.items.push(action.payload)
-      } else {
-        alert('O prato já está no carrinho')
       }
     },
     remove: (state, action: PayloadAction<number>) => {

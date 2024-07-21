@@ -1,9 +1,9 @@
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { useGetRestaurantQuery } from '../../services/api/api'
-import { open, add } from '../../store/reducers/cart'
+import { open, add, CartState } from '../../store/reducers/cart'
 
 import { priceFormat } from '../../utils/utils'
 
@@ -23,15 +23,30 @@ const Dish = () => {
 
   const [cardapio, setCardapio] = useState<Cardapio | undefined>(undefined)
   const [isVisible, setIsVisible] = useState(false)
+  const [isDuplicate, setIsDuplicate] = useState(false)
 
   const { id } = useParams()
   const { data: restaurant, isError } = useGetRestaurantQuery(id!)
 
   const dispatch = useDispatch()
 
+  const cart = useSelector((state: { cart: CartState }) => state.cart.items)
+
   const addToCart = (cardapio: Cardapio) => {
-    dispatch(add(cardapio))
-    dispatch(open())
+    const isInCart = cart.some((item: Cardapio) => item.id === cardapio.id)
+
+    if (!isInCart) {
+      dispatch(add(cardapio))
+      dispatch(open())
+      setIsDuplicate(false)
+    } else {
+      setIsDuplicate(true)
+    }
+  }
+
+  const hide = () => {
+    setIsDuplicate(false)
+    setIsVisible(false)
   }
 
   if (isError) {
@@ -60,11 +75,7 @@ const Dish = () => {
               <S.Modal className={isVisible ? 'visible' : ''}>
                 <S.ModalContent className="container">
                   <img src={cardapio.foto} alt="Imagem do prato" />
-                  <img
-                    src={close}
-                    alt="Botão fechar"
-                    onClick={() => setIsVisible(false)}
-                  />
+                  <img src={close} alt="Botão fechar" onClick={hide} />
                   <div>
                     <header>
                       <h2>{cardapio.nome}</h2>
@@ -75,18 +86,26 @@ const Dish = () => {
                       <br />
                       Serve: {cardapio.porcao}
                     </p>
-                    <div>
-                      <Button type="link" onClick={() => addToCart(cardapio)}>
-                        Adicionar ao carrinho -
-                        <span>{priceFormat(cardapio.preco)}</span>
-                      </Button>
-                    </div>
+                    {!isDuplicate ? (
+                      <div>
+                        <Button type="link" onClick={() => addToCart(cardapio)}>
+                          Adicionar ao carrinho -
+                          <span>{priceFormat(cardapio.preco)}</span>
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="duplicate-in-cart">
+                        <Button
+                          type="link"
+                          onClick={() => setIsDuplicate(false)}
+                        >
+                          O produto já está no carrinho
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 </S.ModalContent>
-                <div
-                  className="overlay"
-                  onClick={() => setIsVisible(false)}
-                ></div>
+                <div className="overlay" onClick={hide}></div>
               </S.Modal>
             )}
           </div>

@@ -158,4 +158,13 @@ export const ModalContent = styled.div`
       object-fit: contain;
     }
   }
+
+  .duplicate-in-cart {
+    ${ButtonLink} {
+      color: #fff;
+      background-color: red;
+      width: 218px;
+      text-align: center;
+    }
+  }
 `
