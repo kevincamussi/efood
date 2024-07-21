@@ -57,10 +57,7 @@ const Dish = () => {
               </Button>
             </S.DishCard>
             {cardapio && (
-              <S.Modal
-                className={isVisible ? 'visible' : ''}
-                onClick={() => setIsVisible(false)}
-              >
+              <S.Modal className={isVisible ? 'visible' : ''}>
                 <S.ModalContent className="container">
                   <img src={cardapio.foto} alt="Imagem do prato" />
                   <img
