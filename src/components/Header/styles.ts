@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import backgroundImage from '../../assets/images/background.png'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const HeaderContainer = styled.header`
   text-align: center;
@@ -26,6 +26,11 @@ export const HeaderContainer = styled.header`
 export const RestaurantProfileHeader = styled(HeaderContainer)`
   padding: 64px 0;
 
+  p:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
   a,
   p {
     color: ${colors.pink};
@@ -43,5 +48,18 @@ export const RestaurantProfileHeader = styled(HeaderContainer)`
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    p {
+      display: block;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    a,
+    img {
+      display: none;
+    }
   }
 `

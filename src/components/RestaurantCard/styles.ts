@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const Card = styled.div`
   position: relative;
@@ -15,6 +15,17 @@ export const Card = styled.div`
 
   color: ${colors.pink};
   background-color: ${colors.white};
+
+  @media (max-width: ${breakpoints.desktop}) {
+    margin: 0 auto;
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    img {
+      max-width: 100%;
+      width: 100%;
+    }
+  }
 `
 
 export const RestaurantTags = styled.div`

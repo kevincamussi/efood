@@ -1,4 +1,4 @@
-import Restaurant from '../../models/restaurantModel'
+import Restaurant from '../../Interfaces/restaurant'
 
 import Button from '../Button'
 

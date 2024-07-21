@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 
 export const RestaurantsListContainer = styled.section`
   background-color: ${colors.backgroundColor};
@@ -13,5 +13,10 @@ export const RestaurantsListContainer = styled.section`
     row-gap: 48px;
     column-gap: 80px;
     justify-content: center;
+
+    @media (max-width: ${breakpoints.desktop}) {
+      grid-template-columns: 1fr;
+      margin: 0 auto;
+    }
   }
 `

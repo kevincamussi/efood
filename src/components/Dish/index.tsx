@@ -1,9 +1,13 @@
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { useRestaurants } from '../../api/api'
+import { useGetRestaurantQuery } from '../../services/api/api'
+import { open, add } from '../../store/reducers/cart'
 
-import Cardapio from '../../models/dishModel'
+import { priceFormat } from '../../utils/utils'
+
+import Cardapio from '../../Interfaces/dishes'
 
 import Button from '../Button'
 
@@ -13,35 +17,31 @@ import close from '../../assets/images/close.png'
 import * as S from './styles'
 
 const Dish = () => {
-  const [cardapio, setCardapio] = useState<Cardapio>()
+  // const restaurantId = parseInt(id)
+  // const dish = data.find((rest) => rest.id === restaurantId)  --> react query
+  // const { id } = useParams<{ id: string }>()   --> react query
+
+  const [cardapio, setCardapio] = useState<Cardapio | undefined>(undefined)
   const [isVisible, setIsVisible] = useState(false)
 
-  const { id } = useParams<{ id: string }>()
-  const { data, isLoading, isError } = useRestaurants()
+  const { id } = useParams()
+  const { data: restaurant, isError } = useGetRestaurantQuery(id!)
 
-  if (!data || !id || isLoading) {
-    return (
-      <div className="loading">
-        <img src={carregando} alt="Carregando página" />
-      </div>
-    )
+  const dispatch = useDispatch()
+
+  const addToCart = (cardapio: Cardapio) => {
+    dispatch(add(cardapio))
+    dispatch(open())
   }
 
   if (isError) {
     return <h4>Erro ao carregar dados</h4>
   }
 
-  const restaurantId = parseInt(id)
-  const dish = data.find((rest) => rest.id === restaurantId)
-
   return (
     <>
-      {!dish ? (
-        <div className="loading">
-          <img src={carregando} alt="Carregando página" />
-        </div>
-      ) : (
-        dish.cardapio.map((prato: Cardapio) => (
+      {restaurant ? (
+        restaurant.cardapio.map((prato: Cardapio) => (
           <div key={prato.id}>
             <S.DishCard>
               <img src={prato.foto} alt="prato" />
@@ -57,7 +57,10 @@ const Dish = () => {
               </Button>
             </S.DishCard>
             {cardapio && (
-              <S.Modal className={isVisible ? 'visible' : ''}>
+              <S.Modal
+                className={isVisible ? 'visible' : ''}
+                onClick={() => setIsVisible(false)}
+              >
                 <S.ModalContent className="container">
                   <img src={cardapio.foto} alt="Imagem do prato" />
                   <img
@@ -76,8 +79,9 @@ const Dish = () => {
                       Serve: {cardapio.porcao}
                     </p>
                     <div>
-                      <Button type="link">
-                        Adicionar ao carrinho - R${cardapio.preco}
+                      <Button type="link" onClick={() => addToCart(cardapio)}>
+                        Adicionar ao carrinho -
+                        <span>{priceFormat(cardapio.preco)}</span>
                       </Button>
                     </div>
                   </div>
@@ -90,6 +94,10 @@ const Dish = () => {
             )}
           </div>
         ))
+      ) : (
+        <div className="loading">
+          <img src={carregando} alt="Carregando página" />
+        </div>
       )}
     </>
   )

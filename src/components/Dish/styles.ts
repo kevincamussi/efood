@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { colors } from '../../styles'
+import { breakpoints, colors } from '../../styles'
 import { ButtonLink, ButtonStyle } from '../Button/styles'
 
 export const DishCard = styled.div`
@@ -41,6 +41,10 @@ export const DishCard = styled.div`
     &:hover {
       box-shadow: 0px 4px 8px ${colors.cream};
     }
+  }
+
+  @media (max-width: ${breakpoints.desktop}) {
+    height: 480px;
   }
 `
 
@@ -132,6 +136,26 @@ export const ModalContent = styled.div`
 
     &:hover {
       box-shadow: 0px 4px 8px ${colors.cream};
+    }
+  }
+
+  @media (max-width: ${breakpoints.tablet}) {
+    font-size: 14px;
+    padding: 8px;
+    justify-content: space-around;
+    flex-direction: column;
+    text-align: center;
+    max-height: 80%;
+
+    h2 {
+      display: block;
+      margin: 0 auto;
+    }
+
+    img {
+      margin: 0;
+      width: 100%;
+      object-fit: contain;
     }
   }
 `
