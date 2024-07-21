@@ -11,7 +11,6 @@ export const DishCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border: 1px solid red;
   height: 440px;
 
   img {
