@@ -75,7 +75,7 @@ const Checkout = () => {
       houseNumber: Yup.string().required('O campo é obrigatório'),
       complement: Yup.string()
     }),
-    onSubmit: (values) => {
+    onSubmit: () => {
       const cleanCep = cleanInput(form.values.cep)
 
       if (cleanCep.length !== 8) {
