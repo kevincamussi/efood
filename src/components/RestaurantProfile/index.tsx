@@ -4,9 +4,8 @@ import { useParams } from 'react-router-dom'
 
 import { useGetRestaurantQuery } from '../../services/api/api'
 
+import Loader from '../Loader'
 import DishesList from '../DishesList'
-
-import carregando from '../../assets/images/loading.gif'
 
 import * as S from './styles'
 
@@ -17,15 +16,23 @@ const RestaurantProfile = () => {
   // const restaurant = currentRestaurant.find((rest) => rest.id === restaurantId)
 
   const { id } = useParams()
-  const { data: currentRestaurant, isError } = useGetRestaurantQuery(id!)
+  const {
+    data: currentRestaurant,
+    isError,
+    isLoading
+  } = useGetRestaurantQuery(id!)
 
   if (isError) {
-    return <h4>Erro ao carregar dados</h4>
+    return (
+      <div className="errorDiv">
+        <h4>Erro ao carregar dados</h4>
+      </div>
+    )
   }
 
   return (
     <>
-      {currentRestaurant ? (
+      {currentRestaurant && !isLoading ? (
         <div>
           <S.BannerImage image={currentRestaurant.capa}>
             <div className="container">
@@ -38,9 +45,7 @@ const RestaurantProfile = () => {
           <DishesList />
         </div>
       ) : (
-        <div className="loading">
-          <img src={carregando} alt="Carregando página" />
-        </div>
+        <Loader />
       )}
     </>
   )

@@ -7,8 +7,6 @@ import { open, add, CartState } from '../../store/reducers/cart'
 
 import { priceFormat } from '../../utils/utils'
 
-import Cardapio from '../../Interfaces/dishes'
-
 import Button from '../Button'
 
 import carregando from '../../assets/images/loading.gif'
@@ -50,7 +48,11 @@ const Dish = () => {
   }
 
   if (isError) {
-    return <h4>Erro ao carregar dados</h4>
+    return (
+      <div className="errorDiv">
+        <h4>Erro ao carregar dados</h4>
+      </div>
+    )
   }
 
   return (

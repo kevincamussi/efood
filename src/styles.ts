@@ -5,7 +5,9 @@ export const colors = {
   white: '#fff',
   cream: '#FFEBD9',
   backgroundColor: '#fff8f1',
-  black: '#000'
+  black: '#000',
+  grey: '#4B4B4B',
+  red: '#ff0000'
 }
 
 export const breakpoints = {
@@ -23,6 +25,15 @@ export const GlobalStyle = createGlobalStyle`
 
   }
 
+  .errorDiv {
+      display:flex;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      height: 50vh;
+      width: 100%;
+  }
+
   body{height: 100%;
   margin: 0;}
 
@@ -31,21 +42,11 @@ export const GlobalStyle = createGlobalStyle`
     width:100%;
     margin: 0 auto;
 
+
+
     @media (max-width: ${breakpoints.desktop}) {
       max-width: 80%;
     }
-  }
-
-  .loading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 40vh;
-  width: 100vw;
-
-  img {
-    width: 100px;
-  }
   }
 
 

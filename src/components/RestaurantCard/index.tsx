@@ -1,5 +1,3 @@
-import Restaurant from '../../Interfaces/restaurant'
-
 import Button from '../Button'
 
 import * as S from './styles'

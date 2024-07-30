@@ -1,6 +1,7 @@
 import styled from 'styled-components'
+
 import { colors } from '../../styles'
-import { ButtonLink } from '../Button/styles'
+import { ButtonStyle } from '../Button/styles'
 
 export const Overlay = styled.div`
   position: absolute;
@@ -34,6 +35,11 @@ export const Sidebar = styled.aside`
   padding: 48px 8px 0 8px;
   z-index: 1;
 
+  p {
+    color: ${colors.cream};
+    text-align: center;
+  }
+
   > img {
     position: absolute;
     top: 16px;
@@ -41,12 +47,13 @@ export const Sidebar = styled.aside`
     cursor: pointer;
   }
 
-  ${ButtonLink} {
+  ${ButtonStyle} {
     background-color: ${colors.cream};
     color: ${colors.pink};
     width: 100%;
     display: block;
     text-align: center;
+    margin-bottom: 8px;
   }
 `
 

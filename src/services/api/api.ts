@@ -19,7 +19,47 @@
 // export const queryClient = new QueryClient()    -> react query
 
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import Restaurant from '../../Interfaces/restaurant'
+
+type UseGetRestaurantsListQueryType =
+  typeof api.endpoints.getRestaurantsList.useQuery
+
+type UseGetRestaurantQueryType = typeof api.endpoints.getRestaurant.useQuery
+
+type UsePurchaseMutationType = typeof api.endpoints.purchase.useMutation
+
+type PurchaseResponse = {
+  orderId: string
+}
+
+type Product = {
+  id: number
+  price: number
+}
+
+type PurchasePaylod = {
+  products: Product[]
+  delivery: {
+    receiver: string
+    address: {
+      description: string
+      city: string
+      zipCode: string
+      number: number
+      complement: string
+    }
+  }
+  payment: {
+    card: {
+      name: string
+      number: string
+      code: number
+      expires: {
+        month: number
+        year: number
+      }
+    }
+  }
+}
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -31,10 +71,24 @@ const api = createApi({
     }),
     getRestaurant: builder.query<Restaurant, string>({
       query: (id) => `restaurantes/${id}`
+    }),
+    purchase: builder.mutation<PurchaseResponse, PurchasePaylod>({
+      query: (body) => ({
+        url: 'checkout',
+        method: 'POST',
+        body
+      })
     })
   })
 })
 
-export const { useGetRestaurantsListQuery, useGetRestaurantQuery } = api
+export const useGetRestaurantsListQuery: UseGetRestaurantsListQueryType =
+  api.endpoints.getRestaurantsList.useQuery
+
+export const useGetRestaurantQuery: UseGetRestaurantQueryType =
+  api.endpoints.getRestaurant.useQuery
+
+export const usePurchaseMutation: UsePurchaseMutationType =
+  api.endpoints.purchase.useMutation
 
 export default api

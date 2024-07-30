@@ -1,12 +1,13 @@
 import { useDispatch, useSelector } from 'react-redux'
 
 import { RootReducer } from '../../store'
-import { close, remove } from '../../store/reducers/cart'
+import { close, remove, openCheckout } from '../../store/reducers/cart'
+import { getTotalPrice, priceFormat } from '../../utils/utils'
 
-import { priceFormat } from '../../utils/utils'
+import Checkout from '../Checkout'
+import Button from '../Button'
 
 import bin from '../../assets/images/bin.png'
-import Button from '../Button'
 import closeButton from '../../assets/images/close.png'
 
 import * as S from './styles'
@@ -23,10 +24,9 @@ const Cart = () => {
     dispatch(close())
   }
 
-  const getTotalPrice = () => {
-    return items.reduce((acumulador, valorAtual) => {
-      return (acumulador += valorAtual.preco)
-    }, 0)
+  const openCheckoutPage = () => {
+    dispatch(openCheckout())
+    console.log()
   }
 
   return (
@@ -35,24 +35,37 @@ const Cart = () => {
         <S.Overlay onClick={closeCart} />
         <S.Sidebar>
           <img src={closeButton} alt="Fechar carrinho" onClick={closeCart} />
-          {items.map((item) => (
-            <S.CartItem key={item.id}>
-              <img src={item.foto} alt={item.nome} />
-              <div>
-                <h3>{item.nome}</h3>
-                <span>{priceFormat(item.preco)}</span>
-              </div>
-              <img
-                src={bin}
-                alt="Delete product from cart"
-                onClick={() => removeFromCart(item.id)}
-              />
-            </S.CartItem>
-          ))}
-          <S.Prices>
-            Total <span>{priceFormat(getTotalPrice())}</span>
-          </S.Prices>
-          <Button type="link">Continuar com a entrega</Button>
+          {items.length > 0 ? (
+            <>
+              {' '}
+              {items.map((item) => (
+                <S.CartItem key={item.id}>
+                  <img src={item.foto} alt={item.nome} />
+                  <div>
+                    <h3>{item.nome}</h3>
+                    <span>{priceFormat(item.preco)}</span>
+                  </div>
+                  <img
+                    src={bin}
+                    alt="Delete product from cart"
+                    onClick={() => removeFromCart(item.id)}
+                  />
+                </S.CartItem>
+              ))}
+              <S.Prices>
+                Total <span>{priceFormat(getTotalPrice(items))}</span>
+              </S.Prices>
+              <Button type="button" onClick={openCheckoutPage}>
+                Continuar com a entrega
+              </Button>
+            </>
+          ) : (
+            <p>
+              Adicione pelo menos um produto no carrinho para continuar com a
+              compra.
+            </p>
+          )}
+          <Checkout />
         </S.Sidebar>
       </S.CartContainer>
     </>
