@@ -95,21 +95,11 @@ const Checkout = () => {
       expiresYear: ''
     },
     validationSchema: Yup.object({
-      cardOwner: Yup.string().when((values, schema) =>
-        paymentPage ? schema.required('O campo é obrigatório') : schema
-      ),
-      cardNumber: Yup.string().when((values, schema) =>
-        paymentPage ? schema.required('O campo é obrigatório') : schema
-      ),
-      cardCode: Yup.string().when((values, schema) =>
-        paymentPage ? schema.required('O campo é obrigatório') : schema
-      ),
-      expiresMonth: Yup.string().when((values, schema) =>
-        paymentPage ? schema.required('O campo é obrigatório') : schema
-      ),
-      expiresYear: Yup.string().when((values, schema) =>
-        paymentPage ? schema.required('O campo é obrigatório') : schema
-      )
+      cardOwner: Yup.string().required('O campo é obrigatório'),
+      cardNumber: Yup.string().required('O campo é obrigatório'),
+      cardCode: Yup.string().required('O campo é obrigatório'),
+      expiresMonth: Yup.string().required('O campo é obrigatório'),
+      expiresYear: Yup.string().required('O campo é obrigatório')
     }),
     onSubmit: (values) => {
       const cleanCardNumber = cleanInput(values.cardNumber)
