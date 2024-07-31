@@ -1,4 +1,35 @@
-# React + TypeScript + Vite
+# Efood
+Este é um projeto de um aplicativo de restaurantes desenvolvido em React com Vite. O aplicativo exibe uma lista de restaurantes, cada restaurante possui seus pratos e é possível adicionar os pratos ao carrinho, finalizar o pedido e retornar o número do pedido da API.
+
+## Tecnologias Utilizadas
+
+**React:** Biblioteca JavaScript para construção de interfaces de usuário.
+**Vite:** Ferramenta de build rápida para projetos front-end.
+**Styled Components:** Biblioteca para estilização de componentes no React.
+**Redux:** Biblioteca para gerenciamento de estado.
+**TypeScript:** Superset do JavaScript que adiciona tipos estáticos.
+**Yup:** Biblioteca para validação de formulários.
+**React Input Mask:** Biblioteca para criação de máscaras de input.
+
+## Funcionalidades
+
+**Lista de Restaurantes:** Exibe uma lista de restaurantes.
+**Detalhes do Restaurante:** Exibe os pratos disponíveis em cada restaurante.
+**Adicionar ao Carrinho:** Adiciona pratos ao carrinho de compras.
+**Finalizar Pedido:** Finaliza o pedido e retorna o número do pedido da API.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
